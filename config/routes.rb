@@ -1,4 +1,15 @@
 Appv3::Application.routes.draw do
+  
+
+  root :to => 'home#index', :as => "home"
+
+  match 'home/callback' => 'home#callback'
+  
+  controller :home do
+    #get 'login' => :new
+    #post 'login' => :create
+    delete 'logout' => :destroy
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
