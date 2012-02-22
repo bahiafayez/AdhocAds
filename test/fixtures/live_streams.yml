@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  publishing_point: MyString
+  proxy_id: 1
+  name: MyString
+  status: MyString
+  URL: MyString
+
+two:
+  publishing_point: MyString
+  proxy_id: 1
+  name: MyString
+  status: MyString
+  URL: MyString

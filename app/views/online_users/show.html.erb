@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @online_user.name %>
+</p>
+
+<p>
+  <b>Plan:</b>
+  <%= @online_user.plan_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_online_user_path(@online_user) %> |
+<%= link_to 'Back', online_users_path %>

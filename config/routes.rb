@@ -1,6 +1,30 @@
 Appv3::Application.routes.draw do
   
 
+  get "streams/index"
+
+  get "streams/show"
+
+  resources :ad_slots
+
+  resources :online_users
+
+  resources :plans
+
+  resources :tags
+
+  resources :ads
+
+  resources :stream_slots
+
+  resources :live_streams
+
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  resources :proxies
+
   get "sessions/new"
 
   get "sessions/create"

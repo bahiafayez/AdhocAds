@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Live stream:</b>
+  <%= @stream_slot.live_stream_id %>
+</p>
+
+<p>
+  <b>Add slot:</b>
+  <%= @stream_slot.add_slot_id %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @stream_slot.duration %>
+</p>
+
+
+<%= link_to 'Edit', edit_stream_slot_path(@stream_slot) %> |
+<%= link_to 'Back', stream_slots_path %>

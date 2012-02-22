@@ -1,0 +1,29 @@
+<%= form_for(@stream_slot) do |f| %>
+  <% if @stream_slot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stream_slot.errors.count, "error") %> prohibited this stream_slot from being saved:</h2>
+
+      <ul>
+      <% @stream_slot.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :live_stream_id %><br />
+    <%= f.number_field :live_stream_id %>
+  </div>
+  <div class="field">
+    <%= f.label :add_slot_id %><br />
+    <%= f.number_field :add_slot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br />
+    <%= f.number_field :duration %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

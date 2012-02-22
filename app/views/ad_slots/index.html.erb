@@ -1,0 +1,23 @@
+<h1>Listing ad_slots</h1>
+
+<table>
+  <tr>
+    <th>Time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ad_slots.each do |ad_slot| %>
+  <tr>
+    <td><%= ad_slot.time %></td>
+    <td><%= link_to 'Show', ad_slot %></td>
+    <td><%= link_to 'Edit', edit_ad_slot_path(ad_slot) %></td>
+    <td><%= link_to 'Destroy', ad_slot, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ad slot', new_ad_slot_path %>

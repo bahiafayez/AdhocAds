@@ -1,0 +1,27 @@
+<h1>Listing stream_slots</h1>
+
+<table>
+  <tr>
+    <th>Live stream</th>
+    <th>Add slot</th>
+    <th>Duration</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stream_slots.each do |stream_slot| %>
+  <tr>
+    <td><%= stream_slot.live_stream_id %></td>
+    <td><%= stream_slot.add_slot_id %></td>
+    <td><%= stream_slot.duration %></td>
+    <td><%= link_to 'Show', stream_slot %></td>
+    <td><%= link_to 'Edit', edit_stream_slot_path(stream_slot) %></td>
+    <td><%= link_to 'Destroy', stream_slot, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Stream slot', new_stream_slot_path %>

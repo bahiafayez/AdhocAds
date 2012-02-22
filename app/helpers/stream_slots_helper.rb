@@ -1,0 +1,2 @@
+module StreamSlotsHelper
+end

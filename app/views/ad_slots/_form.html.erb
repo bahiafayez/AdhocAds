@@ -1,0 +1,21 @@
+<%= form_for(@ad_slot) do |f| %>
+  <% if @ad_slot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ad_slot.errors.count, "error") %> prohibited this ad_slot from being saved:</h2>
+
+      <ul>
+      <% @ad_slot.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :time %><br />
+    <%= f.time_select :time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

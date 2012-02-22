@@ -1,0 +1,37 @@
+<%= form_for(@live_stream) do |f| %>
+  <% if @live_stream.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@live_stream.errors.count, "error") %> prohibited this live_stream from being saved:</h2>
+
+      <ul>
+      <% @live_stream.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :publishing_point %><br />
+    <%= f.text_field :publishing_point %>
+  </div>
+  <div class="field">
+    <%= f.label :proxy_id %><br />
+    <%= f.number_field :proxy_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :URL %><br />
+    <%= f.text_field :URL %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Publishing point:</b>
+  <%= @live_stream.publishing_point %>
+</p>
+
+<p>
+  <b>Proxy:</b>
+  <%= @live_stream.proxy_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @live_stream.name %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @live_stream.status %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @live_stream.URL %>
+</p>
+
+
+<%= link_to 'Edit', edit_live_stream_path(@live_stream) %> |
+<%= link_to 'Back', live_streams_path %>
