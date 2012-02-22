@@ -1,12 +1,19 @@
 Appv3::Application.routes.draw do
   
 
-  root :to => 'home#index', :as => "home"
+  get "sessions/new"
 
-  match 'home/callback' => 'home#callback'
+  get "sessions/create"
+
+  get "sessions/destory"
+
+  root :to => 'sessions#new'
+
+  #match 'sessions/callback' => 'sessions#callback', :as => 'callback' 
   
-  controller :home do
-    #get 'login' => :new
+  controller :sessions do
+    get 'login' => :new
+    get 'callback' => :callback
     #post 'login' => :create
     delete 'logout' => :destroy
   end

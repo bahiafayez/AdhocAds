@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Appv3</title>
+  <title>Live Streaming Store</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+		
+	<header>
+    <div class="container_24">
+    	<!-- .logo -->
+    	<div class="logo">
+      	<a OnClick="window.location='/elections/'"><%= image_tag('logo.png') %></a>
+      </div>
+    	<!-- /.logo -->
+      <nav>
+        <ul>
+          <li><%= link_to "Home", login_url, :class => "home" %></li>
+          <li><%= link_to "Vote", login_url %></li>
+          <li><%= link_to "Regions", login_url %></li>
+          <li><%= link_to "Nominees", login_url %></li>
+          <li><%= link_to "Results", login_url %></li>
+          <li class="last"><%= link_to "About Us", login_url %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- content -->
+  <section id="content">
+  	<div class="row-1">
+  	  <div class="container_24">
+      	<div class="wrapper">
+        	<div class="grid_24">
+            <h2><%= @title %></h2>
+            			<%= image_tag("dv1673055.jpg", :width=>"380px", :height=>'444px', :align=>"right")%>
+          	<!--<h3>Welcome to our site</h3>-->
 
-<%= yield %>
 
+				<%= yield %>
+          </div>
+        </div>
+      </div>
+  	</div>
+  </section>
+  <!-- footer -->
+  <footer>
+    <div class="container_24">
+    	<div class="wrapper">
+    	  <div class="grid_24">
+        	<strong>Software</strong> &copy; 2010 | <a href="index-6.html">Privacy Policy</a> &nbsp; &nbsp;<a href="#" class="rss">GET RSS FEEDS</a>
+        </div>
+    	</div>
+    </div>
+  </footer>
 </body>
 </html>

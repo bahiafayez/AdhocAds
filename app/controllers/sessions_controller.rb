@@ -1,15 +1,20 @@
-class HomeController < ApplicationController
+class SessionsController < ApplicationController
+  
   protect_from_forgery
   
-   def index   
-    session[:oauth] = Koala::Facebook::OAuth.new(APP_ID, APP_SECRET, SITE_URL + '/home/callback')
-    @auth_url =  session[:oauth].url_for_oauth_code(:permissions=>"read_stream, user_likes, user_about_me, friends_about_me")  
-    puts session.to_s + "<<< session"
+   def new
+     @title= "Hello There!"
+     session[:oauth] = Koala::Facebook::OAuth.new(APP_ID, APP_SECRET, SITE_URL + callback_path)
+     @auth_url =  session[:oauth].url_for_oauth_code(:permissions=>"read_stream, user_likes, user_about_me, friends_about_me")  
+     puts session.to_s + "<<< session"
 
-    respond_to do |format|
+     respond_to do |format|
        format.html {  }
      end
-  end
+   end
+   
+  
+  
 
   def callback
     if params[:code]
@@ -25,6 +30,7 @@ class HomeController < ApplicationController
       @likes=@api.get_connections("me","likes")
       @picture = @api.get_picture("me")
       @friends=@api.get_connections("me","friends")
+      @title="Welcome #{@graph_data["name"]}"
     rescue Exception=>ex
       puts ex.message
     end
