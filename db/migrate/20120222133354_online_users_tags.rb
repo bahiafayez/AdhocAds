@@ -3,7 +3,7 @@ class OnlineUsersTags < ActiveRecord::Migration
     create_table :online_users_tags do |t|
       t.references :online_user
       t.references :tag
-      t.timestamps
+      
     end
   end
 

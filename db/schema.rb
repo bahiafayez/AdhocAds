@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120222133359) do
+ActiveRecord::Schema.define(:version => 20120305173839) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20120222133359) do
     t.time     "time"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "ad_users", :force => true do |t|
+    t.integer  "online_user_id"
+    t.integer  "ad_id"
+    t.integer  "order"
+    t.boolean  "played"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "admin_users", :force => true do |t|
@@ -60,18 +69,10 @@ ActiveRecord::Schema.define(:version => 20120222133359) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "ads_plans", :force => true do |t|
-    t.integer  "ad_id"
-    t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "ads_tags", :force => true do |t|
-    t.integer  "ad_id"
-    t.integer  "tag_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "ad_id"
+    t.integer "tag_id"
   end
 
   create_table "live_streams", :force => true do |t|
@@ -82,30 +83,23 @@ ActiveRecord::Schema.define(:version => 20120222133359) do
     t.string   "URL"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "description"
   end
 
   create_table "online_users", :force => true do |t|
     t.string   "name"
-    t.integer  "plan_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "facebook_id"
   end
 
   create_table "online_users_tags", :force => true do |t|
-    t.integer  "online_user_id"
-    t.integer  "tag_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  create_table "plans", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "online_user_id"
+    t.integer "tag_id"
   end
 
   create_table "proxies", :force => true do |t|
-    t.string   "IP"
+    t.string   "ip"
     t.integer  "port"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

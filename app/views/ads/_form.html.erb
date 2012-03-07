@@ -23,6 +23,19 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
+  
+  <label for="tags">Tags</label><br/>
+  
+		<% @tags.each do |tag| %>
+			<%= check_box_tag(
+                            "ad[tag_list][#{tag.id}]", 
+                            "1", 
+                            @ad.tags.detect{|d| d == tag}) %>
+			<%= "#{tag.name}"%><br />
+		<% end %>
+  
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>

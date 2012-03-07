@@ -61,7 +61,7 @@
   float: left;
   position: relative;
   margin-left: 10px;
-  margin-right: 10px;
+  //margin-right: 10px;
 }
 
 /* Grid >> Children (Alpha ~ First, Omega ~ Last)
@@ -819,8 +819,9 @@ h6 {
   font-family:Arial, Helvetica, sans-serif;
   display:inline-block;
   position:relative;
-  background:url(button-bg.gif) 0 0 repeat-x #3b3d3e;
-  border:1px solid #3b3d3e;
+  #background:url(button-bg.gif) 0 0 repeat-x #3b3d3e;
+  background:#BBBBBB;
+  border:1px solid #BBBBBB;
   font-size:11px;
   color:#fff;
   font-weight:bold;
@@ -1131,3 +1132,33 @@ footer a.rss:hover {
       margin-left:11px;
     }
 /*==========================================*/
+
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+.table th, .table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+  
+}
+.table th {
+  font-weight: bold;
+}
+.table thead th {
+  vertical-align: bottom;
+}
+.table thead:first-child tr th, .table thead:first-child tr td {
+  border-top: 0;
+}
+.table tbody + tbody {
+  border-top: 2px solid #ddd;
+}

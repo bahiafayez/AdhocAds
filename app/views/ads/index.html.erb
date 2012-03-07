@@ -1,6 +1,7 @@
 <h1>Listing ads</h1>
 
-<table>
+<table class="table">
+	<thead>
   <tr>
     <th>Url</th>
     <th>Duration</th>
@@ -9,7 +10,7 @@
     <th></th>
     <th></th>
   </tr>
-
+</thead>
 <% @ads.each do |ad| %>
   <tr>
     <td><%= ad.URL %></td>

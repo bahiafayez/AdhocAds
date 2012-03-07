@@ -1,8 +1,11 @@
 class OnlineUser < ActiveRecord::Base
   
   has_and_belongs_to_many :tags
-  belongs_to :plan
+  #has_and_belongs_to_many :ads
   
-  validates :name, :plan_id , :presence => true
+  has_many :ad_users, :dependent => :destroy
+  has_many :ads, :through => :ad_users
+  
+  validates :name, :presence => true
   
 end

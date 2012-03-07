@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  online_user_id: 1
+  ad_id: 1
+  order: 1
+  played: false
+
+two:
+  online_user_id: 1
+  ad_id: 1
+  order: 1
+  played: false

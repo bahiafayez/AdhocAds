@@ -1,2 +1,12 @@
-<h1>Streams#index</h1>
-<p>Find me in app/views/streams/index.html.erb</p>
+<br />
+<% @streams.each do |stream| %>
+  <div>
+    <p><b><h5><%= link_to stream.name, show_stream_url %></h5></b></p> <br />
+    <p><%= stream.description %></p>
+  </div>
+  <hr />
+<% end %>
+
+<br />
+
+<!-- <%= button_to("Logout", logout_path , method: :delete) %> -->

@@ -1,15 +1,15 @@
 Appv3::Application.routes.draw do
   
 
-  get "streams/index"
+  get "home/index"
 
-  get "streams/show"
+  get "streams/index", :as => 'streams'
+
+  get "streams/show", :as => 'show_stream'
 
   resources :ad_slots
 
   resources :online_users
-
-  resources :plans
 
   resources :tags
 
@@ -39,8 +39,9 @@ Appv3::Application.routes.draw do
     get 'login' => :new
     get 'callback' => :callback
     #post 'login' => :create
-    delete 'logout' => :destroy
+    delete 'logout' => :destroy  #ana 3amlaha delete.. therefore in link to pass delete method.. if was get then in link_to dont pass anything like the admission application
   end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

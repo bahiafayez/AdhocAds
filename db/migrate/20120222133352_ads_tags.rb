@@ -3,7 +3,6 @@ class AdsTags < ActiveRecord::Migration
     create_table :ads_tags do |t|
       t.references :ad
       t.references :tag
-      t.timestamps
     end
   end
 

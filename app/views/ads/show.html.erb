@@ -15,6 +15,13 @@
   <%= @ad.description %>
 </p>
 
+<p>
+	<b>Tags:</b>
+	<% @ad.tags.each do |tag|%>
+		<%= tag.name %>
+	<% end %>
+</p>
+
 
 <%= link_to 'Edit', edit_ad_path(@ad) %> |
 <%= link_to 'Back', ads_path %>

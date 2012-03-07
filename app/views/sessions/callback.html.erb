@@ -3,7 +3,16 @@
 	Instead of coming here, I shall forward the user to the stream path.. 
 	where he could see all available streams, with their details.
 	Hence first, I must create the models views and controllers!
+	
+	Session ID is <%= session[:user_id] %>
+	
+	<%= button_to("Logout", logout_path , method: :delete) %>
+	
 </p>
+
+<% @graph_data.each do |key,value| %>
+<%= key %> : <%= value %> <hr>
+<% end %>
 
 <!--Looping through your statuses:<br />
 <ul>
