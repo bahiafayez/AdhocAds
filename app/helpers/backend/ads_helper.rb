@@ -1,0 +1,2 @@
+module Backend::AdsHelper
+end

@@ -1,29 +1,34 @@
 Appv3::Application.routes.draw do
   
 
+  devise_for :administrators
+
   get "home/index"
 
   get "streams/index", :as => 'streams'
 
   get "streams/show", :as => 'show_stream'
 
-  resources :ad_slots
+  namespace :backend do
+    root to: "live_streams#index"
+    resources :proxies
+    resources :ad_slots
+    resources :online_users
+    resources :tags
+    resources :ads
+    resources :stream_slots
+    resources :live_streams
+    #resources :ad_user #should add this too
+  end
 
-  resources :online_users
 
-  resources :tags
-
-  resources :ads
-
-  resources :stream_slots
-
-  resources :live_streams
+  
 
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  resources :proxies
+  
 
   get "sessions/new"
 

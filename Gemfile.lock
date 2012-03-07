@@ -163,6 +163,8 @@ DEPENDENCIES
   activeadmin
   activevalidators
   coffee-rails (~> 3.2.1)
+  devise
+  inherited_resources
   jquery-rails
   koala
   rails (= 3.2.1)

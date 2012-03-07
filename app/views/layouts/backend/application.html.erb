@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Streaming Store</title>
+  <%= stylesheet_link_tag    "backend/resource" %>
+  <%= javascript_include_tag "backend" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>	
+   <div class ="topbar">
+   	<div class ="fill">
+   		<div class ="container">
+          <%= link_to "Live Streaming", backend_root_path, :class => "brand" %>
+		  
+            <ul class="nav">
+              <li><%= link_to "Home", "#", :class => "active" %></li>
+          	  <li><%= link_to "Ads", backend_ads_path  %></li>
+        	</ul>
+      	  	
+	    </div>
+	</div>
+  </div>
+  
+  <div class ="container">
+  	<div class ="content">
+  		<div class ="page-header">
+	        <%= yield :header %>
+	    </div>
+	    <div class ="row">
+	    	<% if flash[:alert] %>
+              <div class="alert-message">
+              	<div class="error">
+              		<p> <%= flash[:alert] %></p>
+              	</div>
+              </div>
+            <% end %>
+            <% if flash[:notice] %>
+              <div class="alert-message">
+              	<div class="info">
+              		<p> <%= flash[:notice] %></p>
+              	</div>
+              </div>
+            <% end %>
+            <div class="span10">
+            	<%= yield %>
+            </div>
+            <div class="span4">
+            	<%= yield :sidebar%>
+            	<div class="block">
+            		<div class="notice">
+            			<h4>Simple Backend Example</h4>
+            			<p>This is an example of creating your own backend in Rails 3.1.</p>
+            		</div>
+            	</div>
+            </div>
+              
+	    </div>
+	  </div>
+    <!-- footer -->
+    <footer>
+      <p> Copyright &copy; <%= Time.now.year %> Nile University. </p>
+    </footer>
+  </body>
+</html>
