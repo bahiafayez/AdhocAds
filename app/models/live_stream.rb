@@ -4,8 +4,8 @@ class LiveStream < ActiveRecord::Base
   has_many :stream_slots, :dependent => :destroy
   has_many :ad_slots, :through => :stream_slots
   
-  validates :publishing_point, :proxy_id, :status, :URL, :presence => true
-  validates :URL, :format => {:with => /(^$)|(^(http|https):\/\/[a-z0-9\/_.:]+.m3u8$)/, :message => "Invalid URL"}
+  validates :publishing_point, :proxy_id, :status, :url, :presence => true
+  validates :url, :format => {:with => /(^$)|(^(http|https):\/\/[a-z0-9\/_.:]+.m3u8$)/, :message => "Invalid URL"}
   
   validates_inclusion_of :status, :in => ["on air", "off air"]
   
