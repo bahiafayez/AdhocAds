@@ -1,5 +1,18 @@
-<h1>New ad</h1>
+<% content_for :header do %>
+  <h1>New Advertisement</h1>
+<% end %>
 
-<%= render 'form' %>
+<ul class="tabs">
+	<li><%= link_to "Index", backend_ads_path %></li>
+	<li class="active"><%= link_to "New", "#" %></li>
+</ul>
+<div >
+	
+<% @attributes = resource_class.attribute_names - %w(id created_at updated_at) %>
+<%= render "form", :attributes => @attributes %>
+	
+<!-- <%= render 'form' %> -->
 
-<%= link_to 'Back', ads_path %>
+<%= link_to 'Back', backend_ads_path %>
+
+</div>

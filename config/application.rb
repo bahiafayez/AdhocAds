@@ -57,5 +57,13 @@ module Appv3
     config.assets.version = '1.0'
     
      config.assets.initialize_on_precompile = false
+     
+     config.to_prepare do
+    Devise::SessionsController.layout "backend/application"
+    Devise::RegistrationsController.layout proc{ |controller| administrator_signed_in? ? "application" : "backend/application" }
+    #Devise::ConfirmationsController.layout "backend/application"
+    #Devise::UnlocksController.layout "backend/application"            
+    Devise::PasswordsController.layout "backend/application" 
+  end
   end
 end

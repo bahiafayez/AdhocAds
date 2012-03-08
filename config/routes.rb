@@ -1,8 +1,9 @@
 Appv3::Application.routes.draw do
   
-
-  devise_for :administrators
-
+  scope '/backend' do
+    devise_for :administrators, :registration => 'register' #, :controllers => { :sessions => "backend/sessions" }
+  end
+  
   get "home/index"
 
   get "streams/index", :as => 'streams'
@@ -10,7 +11,7 @@ Appv3::Application.routes.draw do
   get "streams/show", :as => 'show_stream'
 
   namespace :backend do
-    root to: "live_streams#index"
+    root to: "ads#index"
     resources :proxies
     resources :ad_slots
     resources :online_users
@@ -18,6 +19,7 @@ Appv3::Application.routes.draw do
     resources :ads
     resources :stream_slots
     resources :live_streams
+    
     #resources :ad_user #should add this too
   end
 

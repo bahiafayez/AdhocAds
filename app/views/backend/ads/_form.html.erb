@@ -1,42 +1,21 @@
-<%= form_for(@ad) do |f| %>
-  <% if @ad.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
-
-      <ul>
-      <% @ad.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :URL %><br />
-    <%= f.text_field :URL %>
-  </div>
-  <div class="field">
-    <%= f.label :duration %><br />
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  
-  <label for="tags">Tags</label><br/>
-  
+<%= simple_form_for [ :backend, resource ], :wrapper => :inline do |f| %>
+  <fieldset>
+    <legend>Fields</legend>
+    <% @attributes.each do |attr| %>
+      <%= f.input attr %>
+    <% end %>
+    </fieldset>
+    <fieldset class="checks">
+    <label for="tags">Tags</label><br/><br/><br/>
+    <div>
 		<% @tags.each do |tag| %>
 			<%= check_box_tag(
                             "ad[tag_list][#{tag.id}]", 
                             "1", 
                             @ad.tags.detect{|d| d == tag}) %>
-			<%= "#{tag.name}"%><br />
+			<p ><%= "#{tag.name}"%></p><br />
 		<% end %>
-  
-  
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+     </div>
+  </fieldset>
+  <%= f.submit :class => "primary" %>
 <% end %>

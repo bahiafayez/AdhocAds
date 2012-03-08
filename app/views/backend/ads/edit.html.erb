@@ -1,6 +1,8 @@
 <h1>Editing ad</h1>
 
-<%= render 'form' %>
+<% @attributes = resource_class.attribute_names - %w(id created_at updated_at) %>
+<%= render "form", :attributes => @attributes %>
 
-<%= link_to 'Show', @ad %> |
-<%= link_to 'Back', ads_path %>
+
+<%= link_to 'Show', backend_ad_path(@ad) %> |
+<%= link_to 'Back', backend_ads_path %>

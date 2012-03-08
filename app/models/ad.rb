@@ -12,6 +12,9 @@ class Ad < ActiveRecord::Base
   
   attr_accessor :tag_list
   after_save :update_tags
+  
+  #paginate
+  #paginates_per 5
 
   private 
 
@@ -33,6 +36,14 @@ class Ad < ActiveRecord::Base
     
     #In the paramters as you can see, tag list is under ad:
     #"ad"=>{"URL"=>"http://123.234.12.3:8380/sdsd.m3u8", "duration"=>"4", "description"=>"new ad", "tag_list"=>{"23"=>"1", "24"=>"1"}}
+  end
+  
+   def self.search(search)
+      if search
+        find(:all, :conditions => ['description LIKE ? or URL LIKE ?', "%#{search}%", "%#{search}%"])
+      else
+        find(:all)
+      end
   end
   
 end

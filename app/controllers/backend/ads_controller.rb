@@ -3,7 +3,11 @@ class Backend::AdsController < Backend::ResourceController
   # GET /products
   # GET /products.json
   def index
-    @ads = Ad.all
+    #@ads = Ad.all
+    @ads2 = Ad.order(:URL).search(params[:search])
+    #@ads= @ads2.page(params[:page]).per(3)
+    #.search(params[:search])
+    @ads=Kaminari.paginate_array(@ads2).page(params[:page]).per(5)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,12 +53,13 @@ class Backend::AdsController < Backend::ResourceController
   # POST /products.json
   def create
     @ad = Ad.new(params[:ad])
-    #get_all_tags
-    respond_to do |format|
+    get_all_tags
+    respond_with(@ad) do |format|
       if @ad.save
-        format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
+        format.html { redirect_to backend_ad_path(@ad), notice: 'Ad was successfully created.' }
         format.json { render json: @ad, status: :created, location: @ad }
       else
+        #flash[:error]= 'eeror'
         format.html { render action: "new" }
         format.json { render json: @ad.errors, status: :unprocessable_entity }
       end
@@ -66,11 +71,11 @@ class Backend::AdsController < Backend::ResourceController
   def update
     #params[:tags] ||= {}
     @ad = Ad.find(params[:id])
-    #get_all_tags
+    get_all_tags
     
     respond_to do |format|
       if @ad.update_attributes(params[:ad])
-        format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
+        format.html { redirect_to backend_ad_path(@ad), notice: 'Ad was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -86,7 +91,7 @@ class Backend::AdsController < Backend::ResourceController
     @ad.destroy
 
     respond_to do |format|
-      format.html { redirect_to ads_url }
+      format.html { redirect_to backend_ads_url }
       format.json { head :no_content }
     end
   end

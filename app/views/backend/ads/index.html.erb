@@ -1,6 +1,13 @@
-<h1>Listing ads</h1>
+<% content_for :header do %>
+  <h1>Advertisements</h1>
+<% end %>
 
-<table class="table">
+<ul class="tabs">
+	<li class="active"><%= link_to "Index", "#" %></li>
+	<li><%= link_to "New", new_backend_ad_path %></li>
+</ul>
+
+<table class="zebra-striped">
 	<thead>
   <tr>
     <th>Url</th>
@@ -16,13 +23,23 @@
     <td><%= ad.URL %></td>
     <td><%= ad.duration %></td>
     <td><%= ad.description %></td>
-    <td><%= link_to 'Show', ad %></td>
-    <td><%= link_to 'Edit', edit_ad_path(ad) %></td>
-    <td><%= link_to 'Destroy', ad, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="row-actions"><%= link_to 'Show', backend_ad_path(ad) %></td>
+    <td class="row-actions"><%= link_to 'Edit', edit_backend_ad_path(ad) %></td>
+    <td class="row-actions"><%= link_to 'Destroy', backend_ad_path(ad), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Ad', new_ad_path %>
+<div><%= paginate @ads %></div>
+
+<% content_for :sidebar do %>
+	<% form_tag backend_ads_path, :method => 'get' do %>
+	  <p>
+	    <%= text_field_tag :search, params[:search] %>
+	    <%= submit_tag "Search", :name => nil %>
+	  </p>
+	<% end %>
+<% end %>
+<!-- <%= link_to 'New Ad', new_backend_ad_path %> -->

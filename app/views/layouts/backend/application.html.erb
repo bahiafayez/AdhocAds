@@ -3,7 +3,7 @@
 <head>
   <title>Live Streaming Store</title>
   <%= stylesheet_link_tag    "backend/resource" %>
-  <%= javascript_include_tag "backend" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>	
@@ -15,7 +15,15 @@
             <ul class="nav">
               <li><%= link_to "Home", "#", :class => "active" %></li>
           	  <li><%= link_to "Ads", backend_ads_path  %></li>
-        	</ul>
+        	
+        	
+        	<% if current_administrator %>
+			<li>Logged in as <%= current_administrator.email %></li>
+			<li><%= link_to "Log out", "/backend/administrators/sign_out", :method => :delete %></li>
+			<% else %>
+			<li><%= link_to "log in", "/backend/administrators/sign_in" %></li>
+			<% end %>
+			</ul>
       	  	
 	    </div>
 	</div>
@@ -28,17 +36,17 @@
 	    </div>
 	    <div class ="row">
 	    	<% if flash[:alert] %>
-              <div class="alert-message">
-              	<div class="error">
+              <div class="alert-message error">
+              	
               		<p> <%= flash[:alert] %></p>
-              	</div>
+              	
               </div>
             <% end %>
             <% if flash[:notice] %>
-              <div class="alert-message">
-              	<div class="info">
+              <div class="alert-message info">
+              	
               		<p> <%= flash[:notice] %></p>
-              	</div>
+              	
               </div>
             <% end %>
             <div class="span10">

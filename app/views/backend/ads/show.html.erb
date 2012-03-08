@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<ul class="tabs">
+	<li><%= link_to "Index", backend_ads_path %></li>
+	<li><%= link_to "New", new_backend_ad_path %></li>
+	<li class="active"><%= link_to "Show", "#" %></li>
+	<li><%= link_to "Edit", edit_backend_ad_path %></li>
+	<li><%= link_to "Destroy", backend_ad_path(@ad), :method => :delete, :confirm => "Are you sure?" %></li>
+</ul>
+
+
 
 <p>
   <b>Url:</b>
@@ -23,5 +31,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_ad_path(@ad) %> |
-<%= link_to 'Back', ads_path %>
+<%= link_to 'Edit', edit_backend_ad_path(@ad) %> |
+<%= link_to 'Back', backend_ads_path %>
