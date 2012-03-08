@@ -5,7 +5,7 @@ class CreateLiveStreams < ActiveRecord::Migration
       t.integer :proxy_id
       t.string :name
       t.string :status
-      t.string :URL
+      t.string :url
 
       t.timestamps
     end

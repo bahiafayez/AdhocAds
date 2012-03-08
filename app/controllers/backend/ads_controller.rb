@@ -4,7 +4,7 @@ class Backend::AdsController < Backend::ResourceController
   # GET /products.json
   def index
     #@ads = Ad.all
-    @ads2 = Ad.order(:URL).search(params[:search])
+    @ads2 = Ad.order(:url).search(params[:search])
     #@ads= @ads2.page(params[:page]).per(3)
     #.search(params[:search])
     @ads=Kaminari.paginate_array(@ads2).page(params[:page]).per(5)

@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20120307110830) do
   add_index "administrators", ["reset_password_token"], :name => "index_administrators_on_reset_password_token", :unique => true
 
   create_table "ads", :force => true do |t|
-    t.string   "URL"
+    t.string   "url"
     t.integer  "duration"
     t.text     "description"
     t.datetime "created_at",  :null => false
@@ -97,10 +97,9 @@ ActiveRecord::Schema.define(:version => 20120307110830) do
     t.integer  "proxy_id"
     t.string   "name"
     t.string   "status"
-    t.string   "URL"
+    t.string   "url"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.text     "description"
   end
 
   create_table "online_users", :force => true do |t|

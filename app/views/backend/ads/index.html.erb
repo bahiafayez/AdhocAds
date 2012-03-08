@@ -20,7 +20,7 @@
 </thead>
 <% @ads.each do |ad| %>
   <tr>
-    <td><%= ad.URL %></td>
+    <td><%= ad.url %></td>
     <td><%= ad.duration %></td>
     <td><%= ad.description %></td>
     <td class="row-actions"><%= link_to 'Show', backend_ad_path(ad) %></td>
