@@ -1,7 +1,7 @@
 <br />
 <% @streams.each do |stream| %>
   <div>
-    <p><b><h5><%= link_to stream.name, show_stream_url %></h5></b></p> <br />
+    <p><b><h5><%= link_to stream.name, stream_path(stream.id) %></h5></b></p> <br />
     <p><%= stream.description %></p>
   </div>
   <hr />

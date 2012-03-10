@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(:version => 20120307110830) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "ad_slots", :force => true do |t|
-    t.time     "time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.time     "time",       :default => '2000-01-01 18:07:20'
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "ad_users", :force => true do |t|
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20120307110830) do
     t.string   "url"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "description"
   end
 
   create_table "online_users", :force => true do |t|

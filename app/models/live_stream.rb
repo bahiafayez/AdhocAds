@@ -9,6 +9,8 @@ class LiveStream < ActiveRecord::Base
   
   validates_inclusion_of :status, :in => ["on air", "off air"]
   
+  validates_uniqueness_of :publishing_point, :case_sensitive => false
+  
   def status
     read_attribute(:status).to_s
   end

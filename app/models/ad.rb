@@ -7,8 +7,8 @@ class Ad < ActiveRecord::Base
   
   validates :url, :duration, :presence => true
   validates :duration , :numericality => true
-  #validates :URL , :format => { :with => /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :message => "Not a valid URL" }
-  validates :url, :format => {:with => /(^$)|(^(http|https):\/\/[a-z0-9\/_.:]+.m3u8$)/, :message => "Invalid URL"}
+  #validates :URL , :format => { :with => /(^$)|(^(http|https):\/\/[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix, :message => "Not a valid URL" }
+  validates :url, :format => {:with => /(^$)|(^(http|https):\/\/[a-zA-Z0-9\/_.:]+.m3u8$)/, :message => "Invalid URL"}
   
   attr_accessor :tag_list
   after_save :update_tags

@@ -28,7 +28,7 @@
       <nav>
         <ul>
           <li><%= link_to "Home", "/home/index", :class => ("current" if request.path == "/home/index") %></li>
-          <li><%= link_to "Streams", "/streams/index", :class => ("current" if request.path == "/streams/index") %></li>
+          <li><%= link_to "Streams", streams_url, :class => ("current" if request.path == "/streams") %></li>
           <li><%= link_to "Why XStream", login_url %></li>
           <li><%= link_to "Services", login_url %></li>
           <li><%= link_to "Contact Us", login_url %></li>

@@ -123,7 +123,7 @@ class SessionsController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id]=@user.id
-        format.html { redirect_to "/streams/index", notice: 'You have successfully logged in.' }
+        format.html { redirect_to "/streams", notice: 'You have successfully logged in.' }
       else
         format.html { render action: "new" }
       end

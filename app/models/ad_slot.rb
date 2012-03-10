@@ -5,5 +5,7 @@ class AdSlot < ActiveRecord::Base
   
   validates :time, :presence => true
   
-  
+  def to_s
+    "#{time}"
+  end 
 end

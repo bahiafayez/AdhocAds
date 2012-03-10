@@ -6,9 +6,13 @@ Appv3::Application.routes.draw do
   
   get "home/index"
 
-  get "streams/index", :as => 'streams'
+  match '/getStream', :to => 'streams#getStream' 
+  match '/getAds', :to => 'streams#getAds'  
+  #get "streams/index", :as => 'streams'
 
-  get "streams/show", :as => 'show_stream'
+  #match "streams/:lives" => "streams#show", :as=> 'stream'
+
+  resources :streams
 
   namespace :backend do
     root to: "ads#index"
