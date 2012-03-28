@@ -15,7 +15,7 @@ gem 'responders'
 gem 'simple_form'
 gem 'newrelic_rpm'
 gem 'sass-rails'
-gem 'taps'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -33,6 +33,7 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'taps'
 end
 
 group :production do
