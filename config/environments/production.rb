@@ -21,6 +21,7 @@ Appv3::Application.configure do
   config.assets.digest = true
   
   config.assets.precompile += %w( backend/resource.css )
+  config.assets.precompile += %w[active_admin.css active_admin.js]
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
