@@ -11,7 +11,8 @@ class Ad < ActiveRecord::Base
   validates :url, :format => {:with => /(^$)|(^(http|https):\/\/[a-zA-Z0-9\/_.:]+.m3u8$)/, :message => "Invalid URL"}
   
   attr_accessor :tag_list
-  after_save :update_tags
+  accepts_nested_attributes_for :tags
+  #after_save :update_tags
   
   #paginate
   #paginates_per 5

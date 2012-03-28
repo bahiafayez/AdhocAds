@@ -1,5 +1,30 @@
 ActiveAdmin::Dashboards.build do
 
+section "Online Users" , :priority => 1 do
+    table_for OnlineUser.order("created_at desc").limit(10) do
+      column :id do |user|
+        link_to user.id, admin_online_user_path(user)
+     end
+      column :name do |user|
+        link_to user.name, admin_online_user_path(user)
+      end
+      column :created_at
+      
+    end
+    strong { link_to "View All Users", admin_online_users_path }
+  end
+  
+  section "Live Streams", :priority => 2 do
+    table_for LiveStream.order('id desc').limit(10).each do |customer|
+      column(:url)    {|customer| link_to(customer.url, admin_live_stream_path(customer)) }
+    end
+  end
+  
+  section "Page views", :priority => 3 do
+    #div do
+      text_node %{<iframe src="https://rpm.newrelic.com/public/charts/1CCg33Z1xt4" width="500" height="300" scrolling="no" frameborder="no"></iframe>}.html_safe
+    #end
+  end
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.

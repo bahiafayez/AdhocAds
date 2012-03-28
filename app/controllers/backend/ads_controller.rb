@@ -31,7 +31,7 @@ class Backend::AdsController < Backend::ResourceController
   def new
     @ad = Ad.new
     #@ad.tags.build
-    get_all_tags
+    #get_all_tags
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,14 +46,14 @@ class Backend::AdsController < Backend::ResourceController
   # GET /products/1/edit
   def edit
     @ad = Ad.find(params[:id])
-    get_all_tags
+    #get_all_tags
   end
 
   # POST /products
   # POST /products.json
   def create
     @ad = Ad.new(params[:ad])
-    get_all_tags
+    #get_all_tags
     respond_with(@ad) do |format|
       if @ad.save
         format.html { redirect_to backend_ad_path(@ad), notice: 'Ad was successfully created.' }
@@ -71,7 +71,7 @@ class Backend::AdsController < Backend::ResourceController
   def update
     #params[:tags] ||= {}
     @ad = Ad.find(params[:id])
-    get_all_tags
+    #get_all_tags
     
     respond_to do |format|
       if @ad.update_attributes(params[:ad])

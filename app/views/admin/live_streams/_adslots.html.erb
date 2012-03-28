@@ -1,0 +1,7 @@
+<%= semantic_form_for AdSlot.new, :url => admin_ad_slots_path do |form| %>
+    
+        <%= form.input :time %>
+
+
+  <%= form.submit :value => 'Create', :name => 'live' %>
+<% end %>

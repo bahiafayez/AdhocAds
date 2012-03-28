@@ -4,21 +4,9 @@
     <% @attributes.each do |attr| %>
       <%= f.input attr %>
     <% end %>
+    <%= f.association :tags %>
     
+  </fieldset>
     
-    
-    </fieldset>
-    <fieldset class="checks">
-    <label for="tags">Tags</label><br/><br/><br/>
-    <div>
-		<% @tags.each do |tag| %>
-			<%= check_box_tag(
-                            "ad[tag_list][#{tag.id}]", 
-                            "1", 
-                            @ad.tags.detect{|d| d == tag}) %>
-			<p ><%= "#{tag.name}"%></p><br />
-		<% end %>
-     </div>
-  </fieldset>
   <%= f.submit :class => "primary" %>
 <% end %>

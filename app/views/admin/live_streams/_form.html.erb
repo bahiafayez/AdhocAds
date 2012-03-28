@@ -1,0 +1,20 @@
+  <%= semantic_form_for [:admin, @live_stream] do |g| %>
+    <%= g.inputs "Details" do %>
+      <%= g.input :url %>
+      <%= g.input :name %>
+      <%= g.input :description %>
+      <%= g.input :proxy %>
+      <%= g.input :publishing_point %>
+      <%= g.input :status %>
+      
+      
+    <% end %>
+    <%= g.inputs :for => [:stream_slots, @stream_slot], :name => "New Slot" do |image| %>
+      <% if image.object.new_record? %>
+        <%= image.input :ad_slot %>
+        <%= image.input :duration %>
+        
+      <% end %>
+    <% end %>
+    <%= g.buttons %>
+  <% end %>
