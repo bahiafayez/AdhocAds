@@ -14,11 +14,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= OnlineUser.find(session[:user_id]) if session[:user_id]
   end
   
-  def after_sign_in_path_for(resource)
-    "/backend"
-  end
-  
-  def after_sign_out_path_for(resource)
-    "/backend"
-  end
+  # def after_sign_in_path_for(resource)
+    # "/backend"
+  # end
+#   
+  # def after_sign_out_path_for(resource)
+    # "/backend"
+  # end
 end
