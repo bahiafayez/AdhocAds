@@ -177,7 +177,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.1)
   responders
-  sass-rails (~> 3.2.3)
+  sass-rails
   simple_form
   sqlite3
   uglifier (>= 1.0.3)
