@@ -34,6 +34,9 @@ ActiveAdmin.register LiveStream do
 #       
     f.has_many :stream_slots do |association|
       association.inputs do 
+        if !association.object.nil?
+          association.input :_destroy, :as => :boolean, :label => "Destroy?"
+        end
         association.input :ad_slot
         association.input :duration
         #association.input :live_stream, :as => :hidden,  :selected => LiveStream.first
@@ -57,7 +60,35 @@ ActiveAdmin.register LiveStream do
       
    end
    
-   
+    show :title => :name  do |app|
+    #h3 applicant.first_name
+    
+    panel "LiveStream Information" do
+    attributes_table_for live_stream do
+      row :id
+      row :proxy
+      row :publishing_point
+      row :name
+      row :url
+      row :status
+      row :description
+      row :created_at
+      row :updated_at
+    end
+  end
+  
+  panel "Stream Slots" do
+    table_for live_stream.stream_slots do
+      column "Ad Slot" do |slot|
+        slot.ad_slot
+      end
+      column "Duration" do |slot|
+        slot.duration
+      end
+    end
+  end
+  
+  end
    # sidebar "Ad Slots", :only => [:edit, :new] do
      # render "adslots" # Calls a partial
    # end

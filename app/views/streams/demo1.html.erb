@@ -1,0 +1,443 @@
+
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>Peer2View TV</title> 
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/black-tie/jquery-ui.css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script> 
+	<link rel="stylesheet" href="http://jqueryui.com/demos/demos.css"> 
+	<style> 
+	.column { width: 430px; float: left; padding-bottom: 100px; }
+	.portlet { margin: 0 1em 1em 0; }
+	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+	.portlet-header .ui-icon { float: right; }
+	.portlet-content { padding: 0.4em; }
+	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+	.ui-sortable-placeholder * { visibility: hidden; }
+	.demo { width: 1000px; height: 1000px; background-repeat:no-repeat; ;  margin-top: 0px; margin-left: 10px}
+	#page-header{ height: 50px}
+	.myright{float: right; width:50%;}
+	.myleft{float:left; width:50%}
+	body {
+		background: gray;
+	}
+	</style>
+	<script type="text/javascript">
+	$(function() {
+		//=========================================
+		// PORTLETS CODE
+		//=========================================	
+		$( ".column" ).sortable({
+			connectWith: ".column"
+		});
+ 
+		$( ".portlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+			.find( ".portlet-header" )
+				.addClass( "ui-widget-header ui-corner-all" )
+				.prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+				.end()
+			.find( ".portlet-content" );
+ 
+		$( ".portlet-header .ui-icon" ).click(function() {
+			$( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
+			$( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
+		});
+ 
+		$( ".column" ).disableSelection();
+
+		//=========================================
+		// PORTLETS Cusomtization Code
+		//=========================================	
+
+		//=========================================
+		// STREAMING CODE
+		//=========================================	
+
+		function playAll(){
+			$("#Play---all").click(function() {
+				for (var i=0; i<6; i++){  
+					play2(i)
+					//alert(i)
+				}
+			});					
+		}	
+		function stopAll(){
+			$("#Stop---all").click(function() {
+				for (var i=0; i<6; i++){
+					handle_stop(i);
+				}
+			});					
+		}
+		
+		function play(i){
+			//var a
+			$("#Play---"+i).click(function() {
+				$.getJSON("getID", function(data) {
+					a=data["id"]
+					$.getJSON("getAds2", function(data2) {
+					  handle_play(a,data2,i, false);
+					  //handle_play(i, false);
+					});  
+      			});
+      			// console.log("inside play")
+      				// console.log(a);
+      		    //handle_play(a,i, false);
+			});					
+		}
+		
+		function play2(i){
+			//var a
+			
+				$.getJSON("getID", function(data) {
+					a=data["id"]
+					$.getJSON("getAds2", function(data2) {
+					  handle_play(a,data2,i, true);
+					  //handle_play(i, false);
+					});  
+      			});
+      			// console.log("inside play")
+      				// console.log(a);
+      		    //handle_play(a,i, false);
+							
+		}
+		
+		
+		function stop(i){
+			$("#Stop---"+i).click(function() {
+				handle_stop(i);
+			});	
+		}
+			
+		
+		function handle_play(a,ads,i, withAll){
+			//console.log("in handle play")
+			var streamUrl = $("#channel-list---"+i).val();
+			//alert(streamUrl);
+			if (withAll){
+				console.log("in withall")
+				streamUrl = $("#channel-list---all").val();
+			}
+			streamUrl = streamUrl.replace(".m3u8", ".m3u8?id="+a); //handle different p2p client on the same machine
+			//alert(i);
+			var url;
+			if (streamUrl.indexOf(".m3u8") !=-1){
+		        url = "<video width='100%' height='250px' src='"+streamUrl+"' autoplay='true' controls='true'>You need Safari, Quicktime or IPhone/IPad to play this</video>";    
+			}
+			else{
+				url = "<iframe height='250px' width='100%' src='"+streamUrl+"'></iframe>";
+			}
+			//alert(url);
+            //JSON.stringify(ads)
+            var tags=ads['tags'].join(" ")
+            //tags=tags.replace(",", "<br/>");
+			$("#video-window---"+i).html(url);
+			$("#information---"+i).html("<p><center>Client ID : "+a+"<br/>Facebook Name: "+ads['name']+"</center> <div class='myleft'>Tags are: <br/>"+tags+"</div><div class='myright'>Ads are: <br/>"+traverse(ads['ads'])+"</div></p>");
+			all=""
+					
+		}
+		all=""
+		function traverse(o) {
+		    for (i in o) {  
+		        if (typeof(o[i])=="object") {
+		            //going on step down in the object tree!!
+		            traverse(o[i]);
+		        }
+		         else{
+		         	updated=i.match(/\w+.m3u8$/gi)
+		         	all=all+updated+":"+o[i]+" seconds <br/>";
+		         	}
+		    }
+		    
+		    return all
+		}
+
+
+		
+		function handle_stop(i){
+			var a = $("#channel-list---"+i).val();
+			$("#video-window---"+i).html("<img  height='250px' width='100%' src='/assets/live_stream2.jpg'></iframe>");
+			$("#information---"+i).html("<p><center>Stopped</center></p>");
+		}
+
+
+		
+		function createPortlet(i){					
+		 	play(i);
+			stop(i);		
+
+			var streams = {
+					"ONTV":"http://192.168.2.2:8380/ontv.m3u8",
+					"BBC News":"http://192.168.2.2:8380/bbc.m3u8",							
+			};
+			
+			for (name in streams){
+				$("#channel-list---"+i).append("<option value='"+streams[name]+"'>"+name+"</option>");							
+			}
+		}		
+
+		/*		
+		$("#Play---0").click(function() {
+			var streamUrl = $("#channel-list---0").val();
+			alert(streamUrl);
+			//var videoUrl = "http://p2dev.peerialism.com/nils/drm/MyTestApp2TestPage.aspx?"+streamUrl
+			var url = "<iframe height='250px' width='100%' src='"+streamUrl+"'></iframe>";
+			//alert(a);
+			$("#video-window---0").html(url);
+		});		
+
+		$("#Stop---0").click(function() {
+			var a = $("#channel-list---0").val();
+			//alert(a);
+			$("#video-window---0").html("<img  height='250px' width='100%' src='SmoothCache.png'></iframe>");
+		});			
+		*/
+	
+		for (var i=0; i<6; i++){
+			createPortlet(i);
+		}
+		
+		createPortlet("all");
+		playAll();
+		stopAll();
+	});
+	</script> 
+</head> 
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=372795512732759";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+function popup1(url) 
+{
+console.log("in hereee");
+console.debug("overhere");
+//var mySessionVar=
+//console.log(mySessionVar)
+ var width  = 600;
+ var height = 400;
+ var left   = (screen.width  - width)/2;
+ var top    = (screen.height - height)/2;
+ var params = 'width='+width+', height='+height;
+ params += ', top='+top+', left='+left;
+ params += ', directories=no';
+ params += ', location=no';
+ params += ', menubar=no';
+ params += ', resizable=no';
+ params += ', scrollbars=no';
+ params += ', status=no';
+ params += ', toolbar=no';
+ newwin=window.open(url,'windowname5', params);
+ if (window.focus) {newwin.focus()}
+ return false;
+}
+
+function updateChart(access)
+{
+	window.location = "https://www.facebook.com/logout.php?next='http://localhost:3000/'&access_token='access'"
+}
+
+function popup2(url) 
+{
+console.log("in hereee");
+console.debug("overhere");
+console.debug('<%= cookies["key"] %>');
+ var width  = 600;
+ var height = 400;
+ var left   = (screen.width  - width)/2;
+ var top    = (screen.height - height)/2;
+ var params = 'width='+width+', height='+height;
+ params += ', top='+top+', left='+left;
+ params += ', directories=no';
+ params += ', location=no';
+ params += ', menubar=no';
+ params += ', resizable=no';
+ params += ', scrollbars=no';
+ params += ', status=no';
+ params += ', toolbar=no';
+ newwin=window.open(url,'windowname5', params);
+ 
+ if (window.focus) {newwin.focus()}
+ return false;
+}
+
+</script> 
+
+
+
+<div class="demo" > 
+	<div id="page-header">
+					<select id="channel-list---all" class=".ui-widget select"></select>
+					<button id ="Play---all" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play All</span>
+					</button>
+					<button id ="Stop---all" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop All</span>
+					</button>
+					<%= link_to 'Login', "javascript: void(0)" , :onclick =>"popup1('#{@auth_url}')"%>
+					<%= link_to 'Logout',"javascript: void(0)" , :onclick =>"popup1('#{log_out_url}')" %>
+									
+	</div>
+	<div class="column"> 
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---0" class=".ui-widget select"></select>
+					<button id ="Play---0" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---0" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>	
+					<!-- <a href="javascript: void(0)" onclick="popup('popup.html')">Centered popup window</a> -->				
+					</div>		
+			</div>
+			<!-- <div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="1"></div> --> 
+			<div class="portlet-content">
+				<div id="video-window---0">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---0">
+					<p><center>Not Connected</center></p>
+				</div>					
+			</div> 
+		</div> 
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->		
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---1" class=".ui-widget select"></select>
+					<button id ="Play---1" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---1" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>					
+				</div>		
+			</div> 
+			<div class="portlet-content">
+				<div id="video-window---1">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---1">
+					<p><center>Not Connected</center></p>
+				</div>				
+			</div> 
+		</div> 
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->		
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---2" class=".ui-widget select"></select>
+					<button id ="Play---2" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---2" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>					
+				</div>		
+			</div> 
+			<div class="portlet-content">
+				<div id="video-window---2">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---2">
+					<p><center>Not Connected</center></p>
+				</div>				
+			</div> 
+		</div> 
+	 
+	</div> 
+
+
+
+	 
+	<div class="column"> 
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->		
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---3" class=".ui-widget select"></select>
+					<button id ="Play---3" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---3" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>					
+				</div>		
+			</div> 
+			<div class="portlet-content">
+				<div id="video-window---3">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---3">
+					<p><center>Not Connected</center></p>
+				</div>				
+			</div> 
+		</div> 
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->		
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---4" class=".ui-widget select"></select>
+					<button id ="Play---4" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---4" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>					
+				</div>		
+			</div> 
+			<div class="portlet-content">
+				<div id="video-window---4">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---4">
+					<p><center>Not Connected</center></p>
+				</div>				
+			</div> 
+		</div> 
+
+	 	<!-- ========================== -->
+	 	<!-- ========================== -->		
+		<div class="portlet"> 
+			<div class="portlet-header">
+				<div>
+					<select id="channel-list---5" class=".ui-widget select"></select>
+					<button id ="Play---5" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Play</span>
+					</button>
+					<button id ="Stop---5" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all">
+			   				<span class="ui-button-text">Stop</span>
+					</button>					
+				</div>		
+			</div> 
+			<div class="portlet-content">
+				<div id="video-window---5">
+					<%= image_tag "live_stream2.jpg", :width => "100%", :height => "250px"  %></iframe>
+				</div>
+				<div id="information---5">
+					<p><center>Not Connected</center></p>
+				</div>				
+			</div> 
+		</div> 
+	
+	</div> 
+</div><!-- End demo --> 
+ 
+ 
+
+</body> 
+</html> 

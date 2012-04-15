@@ -12,7 +12,7 @@ class LiveStream < ActiveRecord::Base
   validates_uniqueness_of :publishing_point, :case_sensitive => false
   
   #accepts_nested_attributes_for :ad_slots
-  accepts_nested_attributes_for :stream_slots
+  accepts_nested_attributes_for :stream_slots, :allow_destroy => true
   
   def status
     read_attribute(:status).to_s

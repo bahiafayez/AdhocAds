@@ -7,7 +7,11 @@ Appv3::Application.routes.draw do
   get "home/index"
 
   match '/getStream', :to => 'streams#getStream' 
-  match '/getAds', :to => 'streams#getAds'  
+  match '/getAds', :to => 'streams#getAds'
+  match '/getAds2', :to => 'streams#getAds2'
+  match '/demo1' , :to => 'streams#demo1'
+  match '/log_out' , :to => 'streams#log_out'
+  match '/getID' , :to => 'streams#getID'  
   #get "streams/index", :as => 'streams'
 
   #match "streams/:lives" => "streams#show", :as=> 'stream'
@@ -49,6 +53,7 @@ Appv3::Application.routes.draw do
   controller :sessions do
     get 'login' => :new
     get 'callback' => :callback
+    get 'callback2'=> :callback2
     #post 'login' => :create
     delete 'logout' => :destroy  #ana 3amlaha delete.. therefore in link to pass delete method.. if was get then in link_to dont pass anything like the admission application
   end
