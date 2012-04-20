@@ -1,0 +1,104 @@
+<script src="/assets/javascripts/highcharts.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+
+
+ var chart2;
+  $(function () {
+    chart2= new Highcharts.Chart({
+       chart: 
+       {
+       	 renderTo: 'streams_chart',        
+        },
+       title: { text: 'Streams' },
+       xAxis: { type: 'datetime' },
+       yAxis: {
+          title: { text: 'Number' }
+       },
+       series: []
+      });
+      
+
+ //setTimeout(pollData2, 10000) 
+ pollData2();
+ });
+ 
+ //var ajax_path2 = "/getsavedstreams"
+ function pollData2() {
+ 	alldata={}
+	console.log("in polldata bara");
+  $.ajax({
+    type: 'get',
+    url: "/getsavedstreams",
+    success: function(data2) {
+      // update chart
+      //var series = chart2.series[0],
+      //shift = series.data.length > 10; // shift if the series is longer than 20 
+       //console.log(data)
+       
+       found=false;
+       for (var key in data2) {
+       	//console.log(key);
+       	for (var key2 in data2[key]){
+       		found=false;
+       		for(i=0; i<chart2.series.length; i++)
+       		{
+       			if(chart2.series[i].name==key2)
+       			{
+       				//console.log("testing date conversion")
+       				var tt= new Date(Number(key) * 1000);
+       				if(alldata[key2]!=null)
+       					alldata[key2].push([tt.getTime(),data2[key][key2]]);
+       				else 
+       					alldata[key2]=[[tt.getTime(), data2[key][key2]]];
+       				//console.log("in here");
+       				//console.log(key);
+       				//console.log(data2[key][key2]);
+       				//chart2.series[i].addPoint([key,data2[key][key2]], true, true);
+       				//chart2.series[0].addPoint([1,2])
+       				found=true;
+       			}
+       		}
+       			if(found==false){
+       				var tt= new Date(Number(key) * 1000);
+       				alldata[key2]=[[tt.getTime(), data2[key][key2]]]
+       				chart2.addSeries({
+       					name: key2, data:(function() {
+                        var data = [];
+                        data.push({
+                            x: key,
+                            y: data2[key][key2]
+                        });
+                    
+                    return data;
+                })()
+       			 });
+       			} //end of if found
+       			
+       				
+       		
+       	}
+       }
+       
+       for(i=0; i<chart2.series.length; i++)
+       {
+       	for(key in alldata)
+       	{
+       		if(chart2.series[i].name==key)
+       		{
+       			chart2.series[i].setData(alldata[key])
+       		}
+       	}
+       }
+            
+            chart2.redraw();
+		//chart2.series[0].addPoint([1,2])
+		//console.log("in poll data");
+		//console.log(alldata);
+      
+    }
+  });
+  setTimeout(pollData2, 30000); // Poll data every 30s
+}
+</script>
+
+<div id="streams_chart" style="width: 560px; height: 300px;"></div>

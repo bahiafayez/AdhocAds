@@ -1,0 +1,80 @@
+<script src="/assets/javascripts/highcharts.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+
+
+ var chart;
+  $(function () {
+    chart= new Highcharts.Chart({
+       chart: 
+       {
+       	 renderTo: 'users_chart', 
+		  events: {
+		  			// redraw: function(){
+// 		  				
+                        // console.log("in redraw")
+// 		  				
+		  			// },
+// 		  	
+                    // load: function() {
+                         // // set up the updating of the chart each second
+                        // var series = this.series[0];
+                        // console.log("here??");
+                        // //setInterval(function() {
+                            // var x = (new Date()).getTime(), // current time
+                                // y = <%= OnlineUser.number.to_f.inspect %>;
+                            // series.addPoint([x, y], true, true);
+                        // //}, 30000);
+                        // console.log("here ys is ");
+                        // console.log(<%= OnlineUser.number.to_f.inspect %>);
+                    // }
+                    //couldn't use that because it doesn't update online user.. it takes original value, so needed to use ajax.
+                }        
+        },
+       title: { text: 'Online Users' },
+       xAxis: { type: 'datetime' },
+       yAxis: {
+          title: { text: 'Number' }
+       },
+       series: [{
+                name: 'Online Users',
+                data: (function() {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                    //for (i = -9; i <= 0; i++) {
+                        data.push({
+                            //x: time * 1000,
+                            x: time ,//+ i * 60000,
+                            y: <%= OnlineUser.number.to_f.inspect %>
+                        });
+                    //}
+                    return data;
+                })()
+            }]
+      });
+      //chart.redraw();
+  
+ 
+ pollData();
+ });
+ 
+ var ajax_path = "/getusers"
+ function pollData() {
+	console.log("in polldata bara");
+  $.ajax({
+    type: 'get',
+    url: ajax_path,
+    success: function(data) {
+      // update chart
+      var series = chart.series[0],
+            shift = series.data.length > 10; // shift if the series is longer than 20          
+      chart.series[0].addPoint([(new Date()).getTime(), data], true, shift);
+		console.log("in poll data");
+      setTimeout(pollData, 30000) // Poll data every 30s
+    }
+  });
+}
+</script>
+
+<div id="users_chart" style="width: 560px; height: 300px;"></div>

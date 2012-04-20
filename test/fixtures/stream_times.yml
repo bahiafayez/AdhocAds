@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  polltime: 2012-04-20 00:14:00
+  stream: 1
+  user: 1
+
+two:
+  polltime: 2012-04-20 00:14:00
+  stream: 1
+  user: 1

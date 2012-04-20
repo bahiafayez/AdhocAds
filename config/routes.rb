@@ -11,7 +11,10 @@ Appv3::Application.routes.draw do
   match '/getAds2', :to => 'streams#getAds2'
   match '/demo1' , :to => 'streams#demo1'
   match '/log_out' , :to => 'streams#log_out'
-  match '/getID' , :to => 'streams#getID'  
+  match '/getID' , :to => 'streams#getID'
+  match '/getusers', :to => 'online_users#number_users'
+  match '/saveStreams', :to => 'streams#saveStreams'  
+  match '/getsavedstreams', :to => 'streams#getsavedstreams'
   #get "streams/index", :as => 'streams'
 
   #match "streams/:lives" => "streams#show", :as=> 'stream'

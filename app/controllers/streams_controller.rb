@@ -8,6 +8,8 @@ class StreamsController < ApplicationController
   def show
     logger.debug "LIVE STREAM ID ISSSSSSSSSSSSSSSSSS"
     logger.debug params[:id]
+    @client=session[:user_id]
+    @stream=params[:id]
     @video= LiveStream.find(params[:id])
     @videourl="http://#{@video.proxy}/#{@video.publishing_point}?id=#{session[:user_id]}"
   end
@@ -94,5 +96,22 @@ class StreamsController < ApplicationController
     render :json => add  
   end
 
+  def saveStreams #could call this every hour instead, to save db space..
+   
+    StreamTime.create(:polltime => Time.now, :stream => params[:stream], :user => params[:user] )
+    #debug "in save streams"
+    logger.debug params[:stream]
+    logger.debug params[:user]
+    render :json => "finished"
+  end
+  
+  def getsavedstreams #could call this every hour instead, to save db space..
+    data=StreamTime.getData
+    logger.debug "in save streams"
+  #  logger.debug data
+    #logger.debug params[:user]
+    render :json => data
+    #render :json=> "{\"a\":\"s\"}"
+  end
 
 end

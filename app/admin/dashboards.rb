@@ -25,6 +25,18 @@ section "Online Users" , :priority => 1 do
       text_node %{<iframe src="https://rpm.newrelic.com/public/charts/1CCg33Z1xt4" width="500" height="300" scrolling="no" frameborder="no"></iframe>}.html_safe
     #end
   end
+  
+  section "Online users", :priority=> 4 do
+    div do
+      render 'online_users'
+    end
+  end
+  
+  section "Streams", :priority=> 5 do
+    div do
+      render 'streams_watched'
+    end
+  end
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.

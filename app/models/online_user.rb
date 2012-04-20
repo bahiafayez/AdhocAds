@@ -8,4 +8,9 @@ class OnlineUser < ActiveRecord::Base
   
   validates :name, :presence => true
   
+  
+  def self.number
+    all.count
+  end
+  
 end

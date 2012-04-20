@@ -1,3 +1,23 @@
+ <script type="text/javascript" charset="utf-8">
+
+  $(function () {
+  pollData();
+  })
+ 
+ function pollData() {
+	console.log("in polldata bara");
+  $.ajax({
+    type: 'get',
+    url: '/saveStreams?stream='+<%= @stream.to_f.inspect %>+'&user='+<%= @client.to_f.inspect%>,
+    success: function(data) { 
+		console.log("in poll data");
+    }
+  });
+  setTimeout(pollData, 30000) // Poll data every 30s
+}
+</script>
+
+
 <div align="center">
 	
 <%= video_tag @videourl, :controls=> true, :autoplay => true, :height => 480 , :width => 680 %>
